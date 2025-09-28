@@ -1,0 +1,48 @@
+package com.example.demo.repository;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import com.example.demo.entity.StudyLog;
+
+import lombok.RequiredArgsConstructor;
+
+@Repository
+@RequiredArgsConstructor
+public class StudyLogRepositoryImpl implements StudyLogRepository {
+	
+	private final JdbcTemplate jdbcTemplate;
+
+	@Override
+	public List<StudyLog> selectByNameWildcard(String subject) {
+        
+		String sql = "SELECT * FROM study_log WHERE subject LIKE ? ORDER BY start_time DESC";
+
+            String p = "%" + subject + "%"; //プレースホルダの値
+
+            //　SQLで検索　（プレースホルダ：p）
+            List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, p); 
+
+            // 値の取得→結果の格納
+            List<StudyLog> result = new ArrayList<StudyLog>();
+            for (Map<String, Object> row :list) {
+                StudyLog log = new StudyLog();
+                // 結果の初期化
+                log.setId((int) row.get("id"));
+                log.setStartTime(((Timestamp) row.get("start_time")).toLocalDateTime());
+                log.setEndTime(((Timestamp) row.get("end_time")).toLocalDateTime());
+                log.setSubject((String) row.get("subject"));
+                log.setMemo((String) row.get("memo"));
+                log.setCreatedAt(((Timestamp) row.get("created_at")).toLocalDateTime());
+                result.add(log);
+            }
+                
+            return result;
+	}
+
+}
