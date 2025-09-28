@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>新規学習ログ登録</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <h1>学習ログ登録フォーム</h1>
+
+    <form th:action="@{/logs/new}" th:object="${studyRegistForm}" method="post">
+        <div>
+            <label>開始時間:</label>
+            <input type="datetime-local" th:field="*{startTime}" required />
+        </div>
+
+        <div>
+            <label>終了時間:</label>
+            <input type="datetime-local" th:field="*{endTime}" required />
+        </div>
+
+        <div>
+            <label>科目:</label>
+            <input type="text" th:field="*{subject}" required />
+        </div>
+
+        <div>
+            <label>メモ:</label>
+            <textarea th:field="*{memo}" rows="4" cols="50" placeholder="任意でメモを残せます"></textarea>
+        </div>
+
+        <div>
+            <button type="submit">登録</button>
+        </div>
+    </form>
+
+    <br>
+    <a th:href="@{/logs}">← 学習ログ一覧へ戻る</a><br>
+    <a th:href="@{/timer}">トップページへ戻る</a>
+</body>
+</html>

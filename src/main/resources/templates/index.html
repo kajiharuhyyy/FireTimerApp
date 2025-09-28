@@ -1,9 +1,45 @@
+<!-- index.html -->
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-  <title>Focus Timer</title>
+  <meta charset="UTF-8" />
+  <title>FireTimer - 設定</title>
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-  <h1>🔥 Focus Timer 起動確認 OK！</h1>
+  <h1>ポモドーロタイマー 設定</h1>
+
+  <label>セット数：
+    <input type="number" id="setCount" value="4" min="1" />
+  </label><br>
+
+  <label>作業時間（分）：
+    <input type="number" id="workMinutes" value="25" min="1" />
+  </label><br>
+
+  <label>休憩時間（分）：
+    <input type="number" id="breakMinutes" value="5" min="1" />
+  </label><br><br>
+
+  <button onclick="startPomodoro()">開始する</button>
+  <div>
+      <form th:action="@{/logs/new}" method="GET">
+  		<input type="submit" value="学習ログを記録" class="btn">
+    	</form>
+  </div>
+  <div>
+      <form th:action="@{/logs}" method="GET">
+  		<input type="submit" value="学習ログ一覧を見る" class="btn">
+    	</form>
+  </div>
+
+  <script>
+    function startPomodoro() {
+      const sets = document.getElementById('setCount').value;
+      const work = document.getElementById('workMinutes').value;
+      const rest = document.getElementById('breakMinutes').value;
+      window.location.href = `/timer?sets=${sets}&work=${work}&rest=${rest}`;
+    }
+  </script>
 </body>
 </html>

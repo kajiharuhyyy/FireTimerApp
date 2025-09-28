@@ -17,6 +17,19 @@ import lombok.RequiredArgsConstructor;
 public class StudyLogRepositoryImpl implements StudyLogRepository {
 	
 	private final JdbcTemplate jdbcTemplate;
+	
+	@Override
+	public void save(StudyLog log) {
+	    String sql = "INSERT INTO study_log (start_time, end_time, subject, memo, created_at) VALUES (?, ?, ?, ?, ?)";
+	    jdbcTemplate.update(sql,
+	        log.getStartTime(),
+	        log.getEndTime(),
+	        log.getSubject(),
+	        log.getMemo(),
+	        log.getCreatedAt()
+	    );
+	}
+
 
 	@Override
 	public List<StudyLog> selectByNameWildcard(String subject) {

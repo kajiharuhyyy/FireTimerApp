@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
     <title>Study Log List</title>
 </head>
 <body>
@@ -30,6 +31,9 @@
             <td th:text="${log.createdAt}"></td>
         </tr>
     </table>
+	
+	<br>
+	<a th:href="@{/index}">トップページに戻る</a>
 </body>
 
 </html>

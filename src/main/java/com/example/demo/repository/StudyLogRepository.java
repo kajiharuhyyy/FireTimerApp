@@ -7,5 +7,6 @@ import com.example.demo.entity.StudyLog;
 public interface StudyLogRepository{
 	
 	List<StudyLog> selectByNameWildcard(String subject);
+	void save(StudyLog log);
 
 }
