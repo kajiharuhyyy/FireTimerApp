@@ -7,39 +7,33 @@
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-  <h1>ポモドーロタイマー 設定</h1>
+	<h1>ポモドーロタイマー 設定</h1>
 
-  <label>セット数：
-    <input type="number" id="setCount" value="4" min="1" />
-  </label><br>
+	<label>セット数：
+	  <input type="number" id="setCount" value="4" min="1" />
+	</label><br>
 
-  <label>作業時間（分）：
-    <input type="number" id="workMinutes" value="25" min="1" />
-  </label><br>
+	<label>作業時間（分）：
+	  <input type="number" id="workMinutes" value="25" min="1" />
+	</label><br>
 
-  <label>休憩時間（分）：
-    <input type="number" id="breakMinutes" value="5" min="1" />
-  </label><br><br>
+	<label>休憩時間（分）：
+	  <input type="number" id="breakMinutes" value="5" min="1" />
+	</label><br><br>
 
-  <button onclick="startPomodoro()">開始する</button>
-  <div>
-      <form th:action="@{/logs/new}" method="GET">
-  		<input type="submit" value="学習ログを記録" class="btn">
-    	</form>
-  </div>
-  <div>
-      <form th:action="@{/logs}" method="GET">
-  		<input type="submit" value="学習ログ一覧を見る" class="btn">
-    	</form>
-  </div>
+	<form id="startForm" action="/timer" method="GET">
+	  <input type="hidden" name="sets" id="setsInput">
+	  <input type="hidden" name="work" id="workInput">
+	  <input type="hidden" name="rest" id="restInput">
+	  <input type="submit" value="開始する" class="btn">
+	</form>
 
-  <script>
-    function startPomodoro() {
-      const sets = document.getElementById('setCount').value;
-      const work = document.getElementById('workMinutes').value;
-      const rest = document.getElementById('breakMinutes').value;
-      window.location.href = `/timer?sets=${sets}&work=${work}&rest=${rest}`;
-    }
-  </script>
+	<script>
+	  document.getElementById('startForm').addEventListener('submit', function (e) {
+	    document.getElementById('setsInput').value = document.getElementById('setCount').value;
+	    document.getElementById('workInput').value = document.getElementById('workMinutes').value;
+	    document.getElementById('restInput').value = document.getElementById('breakMinutes').value;
+	  });
+	</script>
 </body>
 </html>

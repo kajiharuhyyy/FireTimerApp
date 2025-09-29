@@ -21,17 +21,28 @@ h2 {
 
 /* 通常のボタン */
 .btn {
-	border: 2px solid green;
-	padding: 4px 20px;
-	font-size: 20px;
-	color: green;
-	cursor:pointer;
+  background-color: #FF6347; /* トマト色で目立たせる例 */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 5px;
+  transition: background-color 0.3s ease;
 }
 
 .btn:hover {
-  color: #fff;
-  background: green;
+  background-color: #e5533d;
 }
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
 
 /* コメント入力の幅 */
 input.comment {

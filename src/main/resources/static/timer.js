@@ -1,9 +1,72 @@
 let isWorkTime = true;
-let timer;
+let timer = null;
 let currentSet = 1;
 let minutes = workMinutes;
 let seconds = 0;
 let isPaused = false;
+
+function startTimer() {
+  if (timer !== null) return; // 多重起動防止
+
+  timer = setInterval(() => {
+    if (isPaused) return; // 停止中は何もしない
+
+    if (seconds === 0) {
+      if (minutes === 0) {
+        clearInterval(timer);
+        timer = null;
+        switchSession();
+        return;
+      } else {
+        minutes--;
+        seconds = 59;
+      }
+    } else {
+      seconds--;
+    }
+
+    updateDisplay();
+  }, 1000);
+}
+
+function handlePause(e) {
+  e.preventDefault();
+  isPaused = true;
+
+  // タイマーは止めない（ただしカウントしないようにする）
+  document.getElementById("pauseBtn").style.display = "none";
+  document.getElementById("resumeBtn").style.display = "inline-block";
+}
+
+function handleResume(e) {
+  e.preventDefault();
+  isPaused = false;
+
+  clearInterval(timer); // 念のため停止
+  timer = null;         // タイマー変数も初期化
+  startTimer();
+  
+  document.getElementById("resumeBtn").style.display = "none";
+  document.getElementById("pauseBtn").style.display = "inline-block";
+}
+
+function handleReset(e) {
+  e.preventDefault();
+  clearInterval(timer);
+  timer = null;
+  isPaused = false;
+
+  isWorkTime = true;
+  currentSet = 1;
+  minutes = workMinutes;
+  seconds = 0;
+
+  updateDisplay();
+  document.getElementById("currentSet").textContent = currentSet;
+  document.getElementById("sessionType").textContent = "作業中";
+  document.getElementById("resumeBtn").style.display = "none";
+  document.getElementById("pauseBtn").style.display = "inline-block";
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   startTimer();

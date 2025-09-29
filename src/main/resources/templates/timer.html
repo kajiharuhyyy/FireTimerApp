@@ -11,16 +11,35 @@
   <h3 id="timer">00:00</h3>
 
   <p>現在のセット：<span id="currentSet">1</span></p>
-  
-  <button id="resetBtn">リセット</button>
-  <button id="pauseBtn">一時停止</button>
-  <button id="resumeBtn" style="display:none;">再開</button>
+  <!-- index.html（抜粋） -->
+  <!-- リセット -->
+  <form onsubmit="handleReset(event)">
+    <input type="submit" value="リセット" class="btn" id="resetBtn">
+  </form>
+
+  <!-- 一時停止 -->
+  <form onsubmit="handlePause(event)">
+    <input type="submit" value="一時停止" class="btn" id="pauseBtn">
+  </form>
+
+  <!-- 再開 -->
+  <form onsubmit="handleResume(event)">
+    <input type="submit" value="再開" class="btn" id="resumeBtn" style="display:none;">
+  </form>
+
   <div>
-      <form th:action="@{/logs/new}" method="GET">
-  		<input type="submit" value="学習ログを記録" class="btn">
-    	</form>
+    <form th:action="@{/logs/new}" method="GET">
+      <input type="submit" value="学習ログを記録" class="btn" />
+    </form>
+  </div>
+
+  <div>
+    <form th:action="@{/logs}" method="GET">
+      <input type="submit" value="学習ログ一覧を見る" class="btn" />
+    </form>
   </div>
   <br><br>
+
   <script th:inline="javascript">
     /*<![CDATA[*/
     const totalSets = [[${sets}]];

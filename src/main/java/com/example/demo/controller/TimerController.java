@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -19,6 +20,21 @@ public class TimerController {
 		model.addAttribute("work", work);
 		model.addAttribute("rest", rest);
 	    return "timer";
+	}
+	
+	@PostMapping("/reset")
+	public String resetTimer() {
+	    return "redirect:/timer";
+	}
+	
+	@PostMapping("/pause")
+	public String pauseTimer() {
+	    return "redirect:/timer";
+	}
+	
+	@PostMapping("/resume")
+	public String resumeTimer() {
+	    return "redirect:/timer";
 	}
 
 }
