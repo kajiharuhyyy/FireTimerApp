@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,43 @@ public class StudyLogRepositoryImpl implements StudyLogRepository {
 	        log.getCreatedAt()
 	    );
 	}
+	
+	@Override
+	public List<StudyLog> findAll() {
+	    String sql = "SELECT * FROM study_log ORDER BY start_time DESC";
+	    List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
+	    List<StudyLog> result = new ArrayList<>();
+
+	    for (Map<String, Object> row : list) {
+	        StudyLog log = new StudyLog();
+	        log.setId(((Number) row.get("id")).longValue());
+
+	        // Timestamp → LocalDateTime（安全に変換）
+	        log.setStartTime(toLocalDateTime(row.get("start_time")));
+	        log.setEndTime(toLocalDateTime(row.get("end_time")));
+	        log.setCreatedAt(toLocalDateTime(row.get("created_at")));
+
+	        log.setSubject((String) row.get("subject"));
+	        log.setMemo((String) row.get("memo"));
+	        result.add(log);
+	    }
+
+	    return result;
+	}
+
+	private LocalDateTime toLocalDateTime(Object value) {
+	    if (value instanceof Timestamp) {
+	        return ((Timestamp) value).toLocalDateTime();
+	    } else if (value instanceof LocalDateTime) {
+	        return (LocalDateTime) value;
+	    } else {
+	        throw new IllegalArgumentException("変換できません: " + value);
+	    }
+	}
+
+
+
+
 
 
 	@Override
@@ -46,13 +84,13 @@ public class StudyLogRepositoryImpl implements StudyLogRepository {
             for (Map<String, Object> row :list) {
                 StudyLog log = new StudyLog();
                 // 結果の初期化
-                log.setId((int) row.get("id"));
-                log.setStartTime(((Timestamp) row.get("start_time")).toLocalDateTime());
-                log.setEndTime(((Timestamp) row.get("end_time")).toLocalDateTime());
-                log.setSubject((String) row.get("subject"));
-                log.setMemo((String) row.get("memo"));
-                log.setCreatedAt(((Timestamp) row.get("created_at")).toLocalDateTime());
-                result.add(log);
+    	        log.setId(((Number) row.get("id")).longValue());
+    	        log.setStartTime(((Timestamp) row.get("start_time")).toLocalDateTime());
+    	        log.setEndTime(((Timestamp) row.get("end_time")).toLocalDateTime());
+    	        log.setSubject((String) row.get("subject"));
+    	        log.setMemo((String) row.get("memo"));
+    	        log.setCreatedAt(((Timestamp) row.get("created_at")).toLocalDateTime());
+    	        result.add(log);
             }
                 
             return result;

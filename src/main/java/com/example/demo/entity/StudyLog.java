@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class StudyLog {
 
-	private int id;
+	private Long id;
 	private LocalDateTime startTime;
 	private LocalDateTime endTime;
 	private String subject;

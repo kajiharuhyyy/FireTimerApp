@@ -1,4 +1,4 @@
-package com.example.demo.repository;
+	package com.example.demo.repository;
 
 import java.util.List;
 
@@ -8,5 +8,8 @@ public interface StudyLogRepository{
 	
 	List<StudyLog> selectByNameWildcard(String subject);
 	void save(StudyLog log);
+	
+	List<StudyLog> findAll();
+
 
 }

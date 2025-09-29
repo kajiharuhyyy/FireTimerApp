@@ -49,8 +49,13 @@ public class StudyLogController {
 	@GetMapping("/logs")
 	public String showSearchForm(Model model) {
 	    model.addAttribute("studyRegistForm", new StudyRegistForm());
+
+	    List<StudyLog> allLogs = repository.findAll();
+	    model.addAttribute("studyLogs", allLogs);
+
 	    return "studylog-list";
 	}
+
 
 	// 検索実行
 	@PostMapping("/logs")
