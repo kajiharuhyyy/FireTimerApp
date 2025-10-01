@@ -22,10 +22,10 @@ public class StudyLogRepositoryImpl implements StudyLogRepository {
 	@Override
 	public void save(StudyLog log) {
 	    String sql = "INSERT INTO study_log (start_time, end_time, subject, memo, created_at) VALUES (?, ?, ?, ?, ?)";
-	    jdbcTemplate.update(sql,
+	    jdbcTemplate.update(sql,	
 	        log.getStartTime(),
 	        log.getEndTime(),
-	        log.getSubject(),
+	        log.getSubject(),	
 	        log.getMemo(),
 	        log.getCreatedAt()
 	    );
