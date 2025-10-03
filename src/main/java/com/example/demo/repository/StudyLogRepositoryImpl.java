@@ -25,7 +25,7 @@ public class StudyLogRepositoryImpl implements StudyLogRepository {
 	    jdbcTemplate.update(sql,	
 	        log.getStartTime(),
 	        log.getEndTime(),
-	        log.getSubject(),	
+	        log.getSubject(),
 	        log.getMemo(),
 	        log.getCreatedAt()
 	    );
